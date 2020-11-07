@@ -29,7 +29,7 @@ int main(int argc, char * * argv)
     return EXIT_FAILURE;
   }
   // otherwise, allocate memory for an array of vectors
-  Vector *vecArr = malloc(sizeof(int)*numElem);
+  Vector *vecArr = malloc(sizeof(Vector)*numElem);
   // read the vectors from the file whose name is argv[1]. save the
   // results in the allocated array
   // if reading fails, release memory and return EXIT_FAILURE

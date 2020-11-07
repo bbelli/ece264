@@ -17,7 +17,7 @@ int countVector(char * filename)
   // You must not use fscanf(, "%d", ) 
   //
   // If fopen fails, return -1
-  Vector *a;
+  Vector a;
   FILE *fptr = fopen(filename, "r");
   if(fptr == NULL){
     return -1;

@@ -6,6 +6,7 @@
 #include <string.h> 
 #include <stdbool.h>
 #include "hw08.h"
+//#include "hw08.c"
 
 
 #ifdef TEST_COUNTVECTOR
@@ -16,10 +17,17 @@ int countVector(char * filename)
   // You must not use fscanf(, "%d", ) 
   //
   // If fopen fails, return -1
-  //
-  //
-  // For the mode of fopen, you may use "r" without b
-  //
+  Vector *a;
+  FILE *fptr = fopen(filename, "r");
+  if(fptr == NULL){
+    return -1;
+  }
+  int counter = 0;
+  while(fread(&a, sizeof(Vector), 1, fptr)){
+    counter++;
+  }
+  fclose(fptr);
+  return counter;
 }
 #endif
 
@@ -27,14 +35,24 @@ int countVector(char * filename)
 bool readVector(char* filename, Vector * vecArr, int size)
 {
   // if fopen fails, return false
+  FILE *fptr = fopen(filename, "r");
+  if(fptr == NULL){
+    return false;
+  }
   // read Vectors from the file.
-  // 
-  //
+  int counter = 0;
+  while(fread(&vecArr, sizeof(vecArr), filename)){
+    counter++;
+  } 
   // if the number of integers is different from size (too
   // few or too many) return false
+  if(counter != sizeof(vecArr)){
+    return false;
+  }
   // 
   // if everything is fine, fclose and return true
-
+  fclose(fprt);
+  return true;
 }
 #endif
 

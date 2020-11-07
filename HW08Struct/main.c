@@ -29,11 +29,11 @@ int main(int argc, char * * argv)
     return EXIT_FAILURE;
   }
   // otherwise, allocate memory for an array of vectors
-  Vector *vecArr = malloc(sizeof(int)*countVec);
+  Vector *vecArr = malloc(sizeof(int)*numElem);
   // read the vectors from the file whose name is argv[1]. save the
   // results in the allocated array
   // if reading fails, release memory and return EXIT_FAILURE
-  bool readVec = readVector(argv[1], intVec, countVec);
+  bool readVec = readVector(argv[1], vecArr, numElem);
   if(!readVec){
     return EXIT_FAILURE;
   }
@@ -49,13 +49,13 @@ int main(int argc, char * * argv)
 
   // write the sorted array to the file whose name is argv[2]
   // if writing fails, release memory and return EXIT_FAILURE
-  bool writeVec = writeVector(argv[2], intVec, countVec);
+  bool writeVec = writeVector(argv[2], vecArr, numElem);
   if(!writeVec){
-    free(intVec);
+    free(vecArr);
     return EXIT_FAILURE;
   }  
   // release memory, return EXIT_SUCCESS
-  free(intVec);
+  free(vecArr);
   return EXIT_SUCCESS;
 
 }

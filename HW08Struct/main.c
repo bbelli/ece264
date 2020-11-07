@@ -25,7 +25,7 @@ int main(int argc, char * * argv)
   // use argv[1] as the input to countVector, save the result
   int numElem = countVector(argv[1]);
   // if the number of vector is 0 or negative, return EXIT_FAILURE
-    if(countVec <= 0){
+    if(numElem <= 0){
     return EXIT_FAILURE;
   }
   // otherwise, allocate memory for an array of vectors

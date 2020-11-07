@@ -41,18 +41,16 @@ bool readVector(char* filename, Vector * vecArr, int size)
   }
   // read Vectors from the file.
   int counter = 0;
-  //while(fread(&vecArr, sizeof(Vector), ,filename)){
   counter = fread(&vecArr[0], sizeof(Vector), size, fptr);
-  //} 
   // if the number of integers is different from size (too
   // few or too many) return false
-  if(counter != size{
+  if(counter != size){
     fclose(fptr);
     return false;
   }
   // 
   // if everything is fine, fclose and return true
-  fclose(fprt);
+  fclose(fptr);
   return true;
 }
 #endif
@@ -78,6 +76,7 @@ int compareVector(const void *p1, const void *p2)
   // If the first vector's z is greater than the second vector's z
   // return 1
   // If the two vectors' x, y, z are the same (pairwise), return 0
+  return 0;
 }
 #endif
 
@@ -96,13 +95,13 @@ bool writeVector(char* filename, Vector * vecArr, int size)
   //} 
   // if the number of integers is different from size (too
   // few or too many) return false
-  if(counter != size{
+  if(counter != size){
     fclose(fptr);
     return false;
   }
   // 
   // if everything is fine, fclose and return true
-  fclose(fprt);
+  fclose(fptr);
   return true;
 }
 #endif

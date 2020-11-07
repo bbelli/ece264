@@ -58,24 +58,40 @@ bool readVector(char* filename, Vector * vecArr, int size)
 #ifdef TEST_COMPAREVECTOR
 int compareVector(const void *p1, const void *p2)
 {
+  const Vector* vec1 = (const Vector *) p1;
+  const Vector* vec2 = (const Vector *) p2;
   // compare the x attribute first
   // If the first vector's x is less than the second vector's x
-  // return -1
+  if((vec1->x) < (vec2->x)){
+    return -1;
+  }
+  
   // If the first vector's x is greater than the second vector's x
-  // return 1
+  if((vec1->x) > (vec2->x)){
+    return 1;
+  }
   // If the two vectors' x is the same, compare the y attribute
-  //
+  if((vec1->x) == (vec2->x)){
   // If the first vector's y is less than the second vector's y
-  // return -1
+    if((vec1->y) < (vec2->y)){
+      return -1;
+    }
   // If the first vector's y is greater than the second vector's y
-  // return 1
+    if((vec1->y) > (vec2->y)){
+      return 1;
+    }
   // If the two vectors' y is the same, compare the z attribute
-  //
   // If the first vector's z is less than the second vector's z
-  // return -1
-  // If the first vector's z is greater than the second vector's z
-  // return 1
+    if((vec1->y) == (vec2->y)){
+      if((vec1->z) < (vec2->z)){
+        return -1;
+      }  
+      if((vec1->z) > (vec2->z)){
+        return 1;
+      }
   // If the two vectors' x, y, z are the same (pairwise), return 0
+    }
+  }
   return 0;
 }
 #endif

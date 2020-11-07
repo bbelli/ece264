@@ -23,13 +23,13 @@ int main(int argc, char * * argv)
   // If not, return EXIT_FAILURE. DO NOT print anything
 
   // use argv[1] as the input to countVector, save the result
-  int countVec = countVector(argv[1]);
+  int numElem = countVector(argv[1]);
   // if the number of vector is 0 or negative, return EXIT_FAILURE
     if(countVec <= 0){
     return EXIT_FAILURE;
   }
   // otherwise, allocate memory for an array of vectors
-  Vector *intVec = malloc(sizeof(int)*countVec);
+  Vector *vecArr = malloc(sizeof(int)*countVec);
   // read the vectors from the file whose name is argv[1]. save the
   // results in the allocated array
   // if reading fails, release memory and return EXIT_FAILURE
@@ -41,7 +41,7 @@ int main(int argc, char * * argv)
 #ifdef DEBUG
   printVector(vecArr, numElem);
 #endif  
-  qsort(&countVec, sizeof(countVec), sizeof(int), compareVector);
+  qsort(&vecArr[0], numElem, sizeof(Vector), compareVector);
 #ifdef DEBUG
   printf("\n");
   printVector(vecArr, numElem);

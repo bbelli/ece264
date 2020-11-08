@@ -29,8 +29,19 @@ void printListNode(ListNode * head)
 // The first node (head) stores 0, the next node stores 1,
 // ..., the last node stores valn - 1
 // return the head of the linked listn
-ListNode * createList(int valn)
-{
+ListNode * createList(int valn){
+  int counter = 0;
+  ListNode * p = NULL;
+  ListNode * n = NULL;
+  ListNode * h = NULL;
+  while(counter < valn -1){
+    n = malloc(sizeof(ListNode));
+    n->value = counter;
+    n->next = NULL;
+    p = n;//?
+    p->next = h;
+  }
+  return h;
 }
 #endif
 
@@ -43,12 +54,19 @@ ListNode * createList(int valn)
 // the list
 //
 // print the values of the nodes to be deleted
-void eliminate(ListNode * head, int valk)
-{
+void eliminate(ListNode * head, int valk){
+  ListNode * p = head;
+  int count = 0;
+  while(p != NULL){
+    if((p->value) == valk){ //Break
+      break;
+    } //Else statement?
+    count++;
+  }
 #ifdef DEBUG
   // this #ifdef ... #endif should be inside the condition *BEFORE* a
   // node' value is printed and it is deleted
-  ListNode * todelete = p;
+  ListNode * todelete = p; //Does this take care of assigning the value? No need to do anything in/after while loop?
   printListNode (todelete); 
 #endif
 }
@@ -69,8 +87,34 @@ void eliminate(ListNode * head, int valk)
 //    return head
 // It is possible that todelete is the first node in the list (i.e.,
 // the head). If this occurs, return the second node of the list.
-ListNode * deleteNode(ListNode * head, ListNode * todelete)
-{
+ListNode * deleteNode(ListNode * head, ListNode * todelete){
+  //1. If head is NULL, the list is empty and this function returns NULL
+  if(head == NULL){
+    return NULL;
+  }
+  //2. If todelete is NULL, nothing can be deleted, return head
+  if(todelete == NULL){
+    return head;
+  }
+  //Delete
+  //If todelete node is the first node
+  ListNode * p = head;
+  ListNode * q = p->next; //to be deleted
+  if(head == todelete){
+    p = head-> next; //Is this correct?
+    free(head);
+    return p; 
+  }
+  //Find todelete value in the Linked List and delete
+  while((q!= NULL) && ((q->value) != (todelete->value))){
+    p = p->next;
+    q = q->next;
+  }
+  if(q != NULL){ //3. If todelete is not in the list, keep the list unchanged and return head
+    p->next = q->next;
+    free(q);
+  }
+  return head;
 }
 #endif
 

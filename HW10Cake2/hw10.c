@@ -62,6 +62,7 @@ void eliminate(ListNode * head, int valk){
         ListNode * todelete = p;
         printListNode(todelete);
         #endif
+        printf("%d\n",todelete->value);
         p = deleteNode(head, todelete);
         count = 1;
         if((p) == NULL){

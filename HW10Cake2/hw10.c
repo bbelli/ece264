@@ -54,21 +54,28 @@ ListNode * createList(int valn){
 // print the values of the nodes to be deleted
 void eliminate(ListNode * head, int valk){
   ListNode * p = head;
-  int count = 0;
+  int count = 1;
   while(p != NULL){
     if((count) == valk){ //Break
+        count = 1;
+        #ifdef DEBUG
+        // this #ifdef ... #endif should be inside the condition *BEFORE* a
+        // node' value is printed and it is deleted
+        ListNode * todelete = p; 
+        printListNode (todelete); 
+        #endif
         p = deleteNode(head, p);
-        break;
+        //break;
     } //Else statement?
     count++;
     p = p->next;
   }
-#ifdef DEBUG
-  // this #ifdef ... #endif should be inside the condition *BEFORE* a
-  // node' value is printed and it is deleted
-  ListNode * todelete = p; //Does this take care of assigning the value? No need to do anything in/after while loop?
-  printListNode (todelete); 
-#endif
+// #ifdef DEBUG
+//   // this #ifdef ... #endif should be inside the condition *BEFORE* a
+//   // node' value is printed and it is deleted
+//   ListNode * todelete = p; //Does this take care of assigning the value? No need to do anything in/after while loop?
+//   printListNode (todelete); 
+// #endif
 }
 #endif
 

@@ -21,6 +21,7 @@ int main(int argc, char * * argv)
     }
   ListNode * head = NULL;
   head = createList(valn);
+  //printListNode(head);
   eliminate(head, valk);
   return EXIT_SUCCESS;
 }

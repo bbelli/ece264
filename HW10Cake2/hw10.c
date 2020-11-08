@@ -32,12 +32,13 @@ void printListNode(ListNode * head)
 ListNode * createList(int valn){
   ListNode * p = NULL;
   ListNode * n = NULL;
-  while(valn >= 0){
+  int values = valn - 1;
+  while(values >= 0){
     n = malloc(sizeof(*n));
-    n->value = valn;
+    n->value = values;
     n->next = p;
     p = n;//?
-    valn--;
+    values--;
   }
   return p;
 }
@@ -57,20 +58,25 @@ void eliminate(ListNode * head, int valk){
   int count = 1;
   while(head != NULL){
      if(count == valk){
-        count = 1;
         #ifdef DEBUG
         ListNode * todelete = p;
         printListNode(todelete);
         #endif
         p = deleteNode(head, todelete);
-     }
-     if((p->next) == NULL){
+        count = 1;
+        if((p) == NULL){
           p = head;
-      }
-      else{
-          p = p->next; 
-      }
+        }
+     }
+     else{
+       if((p->next) == NULL ){
+         p = head;
+       }
+       else{
+         p = p->next;
+       }
        count++;
+     }
   }
 }
 // #ifdef DEBUG

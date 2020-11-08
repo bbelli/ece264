@@ -30,18 +30,16 @@ void printListNode(ListNode * head)
 // ..., the last node stores valn - 1
 // return the head of the linked listn
 ListNode * createList(int valn){
-  int counter = 0;
   ListNode * p = NULL;
   ListNode * n = NULL;
-  ListNode * h = NULL;
-  while(counter < valn -1){
-    n = malloc(sizeof(ListNode));
-    n->value = counter;
-    n->next = NULL;
+  while(valn >= 0){
+    n = malloc(sizeof(*n));
+    n->value = valn;
+    n->next = p;
     p = n;//?
-    p->next = h;
+    valn--;
   }
-  return h;
+  return p;
 }
 #endif
 
@@ -58,10 +56,12 @@ void eliminate(ListNode * head, int valk){
   ListNode * p = head;
   int count = 0;
   while(p != NULL){
-    if((p->value) == valk){ //Break
-      break;
+    if((count) == valk){ //Break
+        p = deleteNode(head, p);
+        break;
     } //Else statement?
     count++;
+    p = p->next;
   }
 #ifdef DEBUG
   // this #ifdef ... #endif should be inside the condition *BEFORE* a

@@ -130,6 +130,9 @@ ListNode * deleteNode(ListNode * head, ListNode * todelete){
     p->next = q->next;
     free(q);
   }
+  if(head->next == NULL){
+    printf("%d", head->value);
+  }
   return returnNode;
 }
 #endif

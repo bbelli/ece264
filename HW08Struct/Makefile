@@ -18,7 +18,7 @@ testmemory: hw08
 	$(VAL) ./hw08 inputs/test3.bin output3
 #testing only input3 and output3
 
-testall: test1 test2 test3 test4
+testall: test1 test2 test3 test4 test5
 
 test1: hw08
 	./hw08 inputs/test1.bin output1
@@ -35,6 +35,9 @@ test3: hw08
 test4: hw08
 	./hw08 inputs/test4.bin output4
 	diff output4 expected/expected4.bin
+test5: hw08
+	./hw08 inputs/test5.bin output5
+	diff output5 expected/expected5.bin
 
 clean: # remove all machine generated files
 	rm -f hw08 *.o output?

@@ -56,7 +56,7 @@ void eliminate(ListNode * head, int valk){
   ListNode * p = head;
   int count = 1;
   while(p != NULL){
-    if((count) == valk){ //Break
+    if((count) == valk){ 
         count = 1;
         #ifdef DEBUG
         // this #ifdef ... #endif should be inside the condition *BEFORE* a
@@ -64,11 +64,16 @@ void eliminate(ListNode * head, int valk){
         ListNode * todelete = p; 
         printListNode (todelete); 
         #endif
+        //ListNode * check = p;
         p = deleteNode(head, p);
-        //break;
     } //Else statement?
     count++;
-    p = p->next;
+    if((p->next) == NULL){
+      p = head;
+    }
+    else{
+      p = p->next;
+    }
   }
 // #ifdef DEBUG
 //   // this #ifdef ... #endif should be inside the condition *BEFORE* a

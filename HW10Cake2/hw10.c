@@ -56,7 +56,7 @@ ListNode * createList(int valn){
 void eliminate(ListNode * head, int valk){
   ListNode * p = head;
   int count = 1;
-  while(head != NULL){
+  while(head->next != NULL){
      if(count == valk){
         #ifdef DEBUG
         ListNode * todelete = p;

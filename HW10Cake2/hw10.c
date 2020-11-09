@@ -15,7 +15,7 @@ void printListNode(ListNode * head)
   printf("printListNode: ");
   while (p != NULL)
     {
-      printf("%7d ", p -> value);
+      printf("%7d ", p -> value); //
       p = p -> next;
     }
   printf("\n");
@@ -57,19 +57,23 @@ void eliminate(ListNode * head, int valk){
   ListNode * p = head;
   int count = 1;
   while(head->next != NULL){
+    
      if(count == valk){
-        #ifdef DEBUG
         ListNode * todelete = p;
+        #ifdef DEBUG
         printListNode(todelete);
-        #endif
         printf("%d\n",todelete->value);
-        p = deleteNode(head, todelete);
+        #endif
+        p = p->next;
+        head = deleteNode(head, todelete);
+        if(head->next == NULL){
+          printf("%d\n", head->value);
+        }
         count = 1;
         if((p) == NULL){
           p = head;
         }
-     }
-     else{
+      } else {
        if((p->next) == NULL ){
          p = head;
        }
@@ -104,25 +108,30 @@ void eliminate(ListNode * head, int valk){
 // It is possible that todelete is the first node in the list (i.e.,
 // the head). If this occurs, return the second node of the list.
 ListNode * deleteNode(ListNode * head, ListNode * todelete){
-  ListNode * p = head;
-  ListNode * q = p->next; //to be deleted
-  ListNode * returnNode = todelete->next;
+  // ListNode * p = head;
+  // ListNode * q = p->next; //to be deleted
+  // ListNode * returnNode = todelete->next;
   //1. If head is NULL, the list is empty and this function returns NULL
   if(head == NULL){
-    return returnNode;
+    return NULL;
   }
   //2. If todelete is NULL, nothing can be deleted, return head
   if(todelete == NULL){
-    return returnNode;
+    return head;
+  }
+  //It is possible that todelete is the first node in the list (i.e.,
+  // the head). If this occurs, return the second node of the list.
+  if(head == todelete){
+    ListNode * secondNode = head->next;
+    free(head);
+    head = secondNode;
+    return head; 
   }
   //Delete
-
-  if(head == todelete){
-    free(head);
-    return returnNode; 
-  }
   //Find todelete value in the Linked List and delete
-  while((q!= NULL) && ((q->value) != (todelete->value))){
+  ListNode * p = head;
+  ListNode * q = p->next; //to be deleted
+  while((q!= NULL) && ((q->value) != (todelete->value))){ // 
     p = p->next;
     q = q->next;
   }
@@ -130,10 +139,7 @@ ListNode * deleteNode(ListNode * head, ListNode * todelete){
     p->next = q->next;
     free(q);
   }
-  if(head->next == NULL){
-    printf("%d", head->value);
-  }
-  return returnNode;
+  return head;
 }
 #endif
 

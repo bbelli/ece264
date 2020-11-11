@@ -34,8 +34,8 @@ bool readList(char * filename, List * arithlist){
   char inputs[WORDLENGTH];
   while(fgets(inputs, WORDLENGTH, fptr) != NULL){
     if(strchr(inputs, '\n') == NULL){
-      deleteList(arithlist); //    free memory of the list
-      fclose(fptr); //    fclose
+      deleteList(arithlist); //free memory of the list
+      fclose(fptr); //fclose
       return false;
     }
     addNode(arithlist, inputs);
@@ -117,15 +117,15 @@ bool deleteNode(List * arithlist, ListNode * ln){
 // If ln is not in the list, return false
 //Search for ln in while loop. 
   ListNode * a = arithlist->head;
-  ListNode *temp = a->next;
   while(a){
-    if(temp == ln){
+    if(a == ln){
       break;
     }
+    a = a->next;
   }
   //If temp cannot find ln in while loop, return false. 
   // If ln is not in the list, return false
-  if(temp != ln){
+  if(a != ln){
     return false;
   }
   //It is possible that ln is the first node in the list (i.e.,
@@ -144,18 +144,10 @@ bool deleteNode(List * arithlist, ListNode * ln){
     arithlist->tail = secondNode;
     return true;
   }
-
-  //Delete
-  //Find todelete value in the Linked List and delete
-  ListNode * p = arithlist->head;
-  ListNode * q = p->next; //to be deleted
-  // while((q!= NULL) && ((q->value) != (ln->value))){ //WON'T WORK CORRECTLY
-  //   p = p->next;
-  //   q = q->next;
-  // }
-  if(q != NULL){ //3. If todelete is  in the list, delete.
-    p->next = q->next;
-    free(q);
+  if(ln != NULL){ //3. If todelete is  in the list, delete.
+    ln->prev->next = ln->next;
+    ln->next->prev = ln->prev;
+    free(ln);
   }
   return true;
 }

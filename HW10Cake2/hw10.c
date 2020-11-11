@@ -68,7 +68,8 @@ void eliminate(ListNode * head, int valk){
         head = deleteNode(head, todelete);
         if(head->next == NULL){
           printf("%d\n", head->value);
-        }
+          free(head);
+	}
         count = 1;
         if((p) == NULL){
           p = head;

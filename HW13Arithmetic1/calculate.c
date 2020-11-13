@@ -66,63 +66,89 @@ bool calculate(List * arithlist)
   ListNode *a = arithlist->head;
   int operator;
   int count = 0;
+  int intCount = 0;
   long op1int = 0;
   long op2int = 0;
-  while(a){ 
-    ListNode *temp = a->next;
-    if(isOperator(temp->word)){
+  while(a){ //Check if operator exists in List
+    //ListNode *temp = a->next;
+    if(isOperator(a->word) >= 0){
       count++;
     }
+    else if(isOperator(a->word) == -1){
+      intCount++;
+    }
+    //printf("calcNode: %s\n", a->word);
     a = a->next;
   }
-  if(count < 1){
+  if(((count < 1) && (intCount != 1)) || (intCount == 0) ){ //If no operand, return false. 
     return false;
   }
   a = arithlist->head;
-  while(a->next){
-    ListNode *temp = a->next;
-    if(isOperator(temp->word)){
-      ListNode *operand1 = NULL;
-      ListNode *operand2 = NULL;
-      //char *junk;
+  count = 0;
+  while(a){
+     //printf("calcNode: %s\n", a->word);
+    if(isOperator(a->word) >= 0){
+      operator = isOperator(a->word);
+      ListNode *operand2 = a->prev; //2, 3, +
+      //printf("operand2: %s\n", operand2->word);
+      ListNode *operand1 = operand2->prev;
+      //printf("operand1: %s\n", operand1->word);
       char results[36];
-      operand2 = temp->prev; 
-      operand1 = operand2->prev;
-      op1int = strtol(operand1->word, NULL, 36);
-      op2int = strtol(operand2->word, NULL, 36);
-      operator = isOperator(temp->word);
+      // If an operator is found, find the two previous nodes as operands
+      if((operand2 == NULL) ||(operand1 == NULL)){ // If cannot find previous two operands, return false
+        return false;
+      }
+      op1int = strtol(operand1->word, NULL, 10);
+      op2int = strtol(operand2->word, NULL, 10);
       if(operator == -1){
         return false;
       }
       if(operator == 0){ //SUM
       int sum = op1int + op2int;
-      sprintf(results, "%d", sum);
-      strcpy(temp->word, results);
-      deleteNode(arithlist, operand1);
-      deleteNode(arithlist, operand2);
+      sprintf(results, "%d\n", sum); //Convert int to char
+      strcpy(a->word, results); //Replace temp->word with result.
+      deleteNode(arithlist, operand1); //Delete operand 1
+      deleteNode(arithlist, operand2); //Delete operand 2
       }
       if(operator == 1){ //SUB
       int sub = op1int - op2int;
-      sprintf(results, "%d", sub);
-      strcpy(temp->word, results);
-      deleteNode(arithlist, operand1);
-      deleteNode(arithlist, operand2);
+      sprintf(results, "%d\n", sub); //Convert int to char
+      strcpy(a->word, results); //Replace temp->word with result. 
+      deleteNode(arithlist, operand1); //Delete operand 1
+      deleteNode(arithlist, operand2); //Delete operand 2
       }
       if(operator == 2){ //MULT
-      int mult = op1int - op2int;
-      sprintf(results, "%d", mult);
-      strcpy(temp->word, results);
-      deleteNode(arithlist, operand1);
-      deleteNode(arithlist, operand2);
+      int mult = op1int * op2int;
+      sprintf(results, "%d\n", mult); //Convert int to char
+      strcpy(a->word, results); //Replace temp->word with result. 
+      deleteNode(arithlist, operand1); //Delete operand 1
+      deleteNode(arithlist, operand2); //Delete operand 2
       }
-    }
-  }
-  if((a->next == NULL) & (a->word == NULL)){
-    if(isOperator(a->word) == (0 || 1 || 2)){
-      return false;
+      operand1 = NULL;
+      operand2 = NULL;
+      a = arithlist->head;
+      count++;
     }
     else{
+      a = a->next;
+    }
+  }
+  a = arithlist->head;
+  arithlist->tail->next = NULL;
+  arithlist->head->prev = NULL;
+  a = arithlist->head;
+  
+
+  // after going through the entire list and performing the operations,
+  //     the list should have exactly one node left. If this is not
+  //     true, return false
+  int final = isOperator(arithlist->head->word);
+  if((arithlist->head->next == NULL) && (arithlist->tail->next == NULL) ){
+    if(final == -1){ //If last node is an operator, return false. 
       return true;
+    }
+    else{
+      return false;
     }
   }
   else{

@@ -22,7 +22,7 @@
 //    arithlist points to the head and tail of the list
 //    return true
 bool readList(char * filename, List * arithlist){
-  If arithlist is NULL, return false
+  // If arithlist is NULL, return false
   if(arithlist == NULL){
     return false;
   }
@@ -139,10 +139,14 @@ bool deleteNode(List * arithlist, ListNode * ln){
   }
   //It is possible that ln is the first node in the list (i.e.,
   // the head). If this occurs, return the second node of the list.
-  if((arithlist->head) == ln){
-    if((arithlist->head->next) != NULL){
-      secondNodeHead = arithlist->head->next;
-    }
+  if((arithlist->head) == (arithlist->tail)){
+    free(arithlist->head);
+    arithlist->head = NULL;
+    arithlist->tail = NULL;
+    return true;
+  }
+  else if((arithlist->head) == ln){
+    secondNodeHead = arithlist->head->next;
     free(arithlist->head);
     arithlist->head = secondNodeHead;
     secondNodeHead->prev = NULL;
@@ -150,10 +154,8 @@ bool deleteNode(List * arithlist, ListNode * ln){
   }
    //It is possible that ln is the tail node in the list (i.e.,
   // the tail). If this occurs, return the second node from the tail of the list.
-  if((arithlist->tail) == ln){
-      if((arithlist->tail->prev) != NULL){
-        secondNodeTail = arithlist->tail->prev;
-      }
+  else if((arithlist->tail) == ln){
+    secondNodeTail = arithlist->tail->prev;
     free(arithlist->tail);
     arithlist->tail = secondNodeTail;
     secondNodeTail->next = NULL;
@@ -173,4 +175,4 @@ bool deleteNode(List * arithlist, ListNode * ln){
   //   free(arithlist->head);
   //   arithlist->head = secondNode;
   //   return true;
-  // }}
+  // }}}

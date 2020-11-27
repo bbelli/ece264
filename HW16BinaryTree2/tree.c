@@ -95,38 +95,115 @@ Tree * buildTree(int * inArray, int * postArray, int size){
 #endif
 
 #ifdef TEST_PRINTPATH
-void printPath(Tree * tr, int val){
-  printf("Root: %d\n", tr->root->value);
-  printf("n1: %d\n", tr->root->left->value);
-  printf("2: %d\n", tr->root->left->left->value);
-  TreeNode* leftSide = tr->root;
-  TreeNode* rightSide = tr->root;
-  bool side;
+bool searchTree(TreeNode * node, int val){
+  
+  if(node == NULL){
+    return false;
+  }
+  if(node->value == val){
+    return true;
+  }
+  bool left = searchTree(node->left, val);
+  if(left){
+    printf("%d\n", node->left->value);
+    return left;
+  }
+  bool right = searchTree(node->right, val);
+  if(right){
+    printf("%d\n", node->right->value);
+  }
+  return right;
 
-  while(leftSide){
-    if(leftSide->value == val){
-      side = false;
-      printf("BB : %d\n", leftSide->value);
-      break;
-    } else{
-    leftSide = leftSide->left;
-    }
+}
+
+
+void printPath(Tree * tr, int val){
+  TreeNode* root = tr->root;
+  bool result = searchTree(root, val);
+  if(result){
+    printf("%d\n", root->value);
   }
-  while(rightSide){
-    if(rightSide->value == val){
-      side = true;
-      printf("AA: %d\n", rightSide->value);
-      break;
-    } else{
-    rightSide = rightSide->right;
-    }
-  }
-  if(side){
-    while(rightSide){
-      printf("%d\n", rightSide->value);
-      rightSide = rightSide->left;
-    } 
-  }
+}
+#endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // printf("Root: %d\n", tr->root->value);
+  // printf("n1: %d\n", tr->root->left->value);
+  // printf("2: %d\n", tr->root->left->left->value);
+  // TreeNode* leftSide = tr->root;
+  // TreeNode* rightSide = tr->root;
+  // bool side;
+
+  // // while(leftSide){
+  //   if(leftSide->value == val){
+  //     side = false;
+  //     printf("BB : %d\n", leftSide->value);
+  //     break;
+  //   } else{
+  //   leftSide = leftSide->left;
+  //   }
+  // }
+  // while(rightSide){
+  //   if(rightSide->value == val){
+  //     side = true;
+  //     printf("AA: %d\n", rightSide->value);
+  //     break;
+  //   } else{
+  //   rightSide = rightSide->right;
+  //   }
+  // }
+  // if(side){
+  //   while(rightSide){
+  //     printf("%d\n", rightSide->value);
+  //     rightSide = rightSide->left;
+  //   } 
+  // }
   // else{
   //   while(leftSide){
   //     printf("%d", rightSide->value);
@@ -137,5 +214,3 @@ void printPath(Tree * tr, int val){
 
   //free(rightSide);
   //free(leftSide);
-}
-#endif
